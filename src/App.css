@@ -1,4 +1,4 @@
-.App {
+.App__screen {
   width: calc(var(--tile-size) * 7);
   height: calc(var(--tile-size) * 7);
   border: calc(var(--tile-size) / 16) solid black;
