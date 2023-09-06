@@ -1,0 +1,11 @@
+.GuideTile {
+  background-color: rgba(0, 0, 255, 0.25);
+  width: var(--tile-size);
+  height: var(--tile-size);
+  border: var(--tile-border) solid rgba(0, 0, 0, 0.25);
+  display: inline-block;
+}
+
+.GuideTile__container {
+  width: max-content;
+}

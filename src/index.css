@@ -1,0 +1,10 @@
+:root {
+  --tile-size: calc(1rem * 4);
+  --tile-border: calc(var(--tile-size) / 64);
+}
+
+* {
+  box-sizing: border-box;
+  font-size: calc(var(--tile-size) / 4);
+  margin: 0;
+}
