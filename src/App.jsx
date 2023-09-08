@@ -6,14 +6,18 @@ import GuideHero from './components/GuideHero'
 import GuideTile from './components/GuideTile'
 
 function App() {
-  const zoomTile = 16 * 4
+  // const zoomTile = 16 * 4 /** 64 */
   const walkingRef = useRef()
   const [coordinate, setCoordinate] = useState([0, 0])
 
+  function roundToNearest(number, decimalPlace) {
+    const multiplier = 1 / decimalPlace;
+    return Math.round(number * multiplier) / multiplier;
+  }
+
   useEffect(() => {
     for (const border of data.border) {
-      const [x, y] = border;
-      if (x * zoomTile === coordinate[0] && y * zoomTile === coordinate[1]) {
+      if (border[0] === roundToNearest(coordinate[0] / 64, 0.5) && border[1] === roundToNearest((coordinate[1] / 64) + 0.5, 0.5)) {
         console.log('stop!!!');
       }
     }
@@ -25,13 +29,13 @@ function App() {
       setCoordinate(previousCoordinate => {
         switch (direction) {
           case 'right':
-            return [previousCoordinate[0] + .5, previousCoordinate[1]]
+            return [previousCoordinate[0] + 1, previousCoordinate[1]]
           case 'left':
-            return [previousCoordinate[0] - .5, previousCoordinate[1]]
+            return [previousCoordinate[0] - 1, previousCoordinate[1]]
           case 'down':
-            return [previousCoordinate[0], previousCoordinate[1] + .5]
+            return [previousCoordinate[0], previousCoordinate[1] - 1]
           case 'up':
-            return [previousCoordinate[0], previousCoordinate[1] - .5]
+            return [previousCoordinate[0], previousCoordinate[1] + 1]
         }
       })
     }, 30)
@@ -47,10 +51,15 @@ function App() {
         <div style={{
           position: 'absolute',
           left: `calc((var(--tile-size) * -1) + (-1 * ${coordinate[0]}px))`,
-          top: `calc((var(--tile-size) * 0) + (-1 * ${coordinate[1]}px))`,
+          top: `calc((var(--tile-size) * 0) + ${coordinate[1]}px)`,
         }}>
           <GuideTile />
           <GuideBorder />
+
+          <div className='App__hero--direction' style={{
+            left: `calc(var(--tile-size) * 4 + (${roundToNearest(coordinate[0] / 64, 0.5)} * 64px))`,
+            top: `calc(var(--tile-size) * 3 + (${roundToNearest(coordinate[1] / 64, 0.5)} * -64px))`,
+          }}></div>
         </div>
 
         <div className='App__hero'>
@@ -59,7 +68,10 @@ function App() {
       </div>
 
       <div className='App__controller'>
-        <p>{coordinate[0] + '/' + coordinate[1]}</p>
+        <p>{
+          coordinate[0] + '/' + coordinate[1] + ' | ' +
+          roundToNearest(coordinate[0] / 64, 0.5) + '/' + roundToNearest(coordinate[1] / 64, 0.5)
+        }</p>
 
         <button
           onMouseDown={() => startWalking('up')}

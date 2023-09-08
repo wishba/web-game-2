@@ -19,7 +19,15 @@
   top: calc(var(--tile-size) * 0);
 }
 
+.App__hero--direction {
+  width: calc(var(--tile-size) / 2);
+  height: calc(var(--tile-size) / 2);
+  background-color: rgba(255, 255, 0, 0.5);
+  position: absolute;
+}
+
 .App__controller {
   position: absolute;
   bottom: 0;
+  background-color: lightgray;
 }
