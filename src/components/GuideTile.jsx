@@ -11,7 +11,7 @@ function GuideTile() {
       tileArray.push(<div key={`${indexWidth} ${indexHeight}`} className='GuideTile'>
         {indexWidth - (Math.ceil(tileWidth / 2) - 1)}
         /
-        {indexHeight - (Math.ceil(tileHeight / 2) - 1)}
+        {-1 * (indexHeight - (Math.ceil(tileHeight / 2) - 1))}
       </div>)
     }
 
