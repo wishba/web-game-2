@@ -1,28 +1,40 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import './App.css'
+import data from './data/data.json'
 import GuideBorder from './components/GuideBorder'
 import GuideHero from './components/GuideHero'
 import GuideTile from './components/GuideTile'
 
 function App() {
+  const zoomTile = 16 * 4
   const walkingRef = useRef()
   const [coordinate, setCoordinate] = useState([0, 0])
+
+  useEffect(() => {
+    for (const border of data.border) {
+      const [x, y] = border;
+      if (x * zoomTile === coordinate[0] && y * zoomTile === coordinate[1]) {
+        console.log('stop!!!');
+      }
+    }
+  }, [coordinate])
+
 
   const startWalking = (direction) => {
     walkingRef.current = setInterval(() => {
       setCoordinate(previousCoordinate => {
         switch (direction) {
           case 'right':
-            return [previousCoordinate[0] + 1, previousCoordinate[1]]
+            return [previousCoordinate[0] + .5, previousCoordinate[1]]
           case 'left':
-            return [previousCoordinate[0] - 1, previousCoordinate[1]]
+            return [previousCoordinate[0] - .5, previousCoordinate[1]]
           case 'down':
-            return [previousCoordinate[0], previousCoordinate[1] + 1]
+            return [previousCoordinate[0], previousCoordinate[1] + .5]
           case 'up':
-            return [previousCoordinate[0], previousCoordinate[1] - 1]
+            return [previousCoordinate[0], previousCoordinate[1] - .5]
         }
       })
-    }, 50)
+    }, 30)
   }
 
   const stopWalking = () => {
@@ -30,13 +42,8 @@ function App() {
   }
 
   return (
-    <div>
-      <div className='App__screen' style={{
-        position: 'relative',
-        left: '50vw',
-        top: '50vh',
-        transform: 'translate(-50%, -50%)',
-      }}>
+    <div className='App'>
+      <div className='App__screen'>
         <div style={{
           position: 'absolute',
           left: `calc((var(--tile-size) * -1) + (-1 * ${coordinate[0]}px))`,
@@ -46,19 +53,12 @@ function App() {
           <GuideBorder />
         </div>
 
-        <div style={{
-          position: 'absolute',
-          left: `calc(var(--tile-size) * -1)`,
-          top: `calc(var(--tile-size) * 0)`,
-        }}>
+        <div className='App__hero'>
           <GuideHero />
         </div>
       </div>
 
-      <div style={{
-        position: 'absolute',
-        bottom: '0',
-      }}>
+      <div className='App__controller'>
         <p>{coordinate[0] + '/' + coordinate[1]}</p>
 
         <button
