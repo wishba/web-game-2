@@ -7,8 +7,11 @@ import GuideTile from './components/GuideTile'
 
 function App() {
   // const zoomTile = 16 * 4 /** 64 */
+  const tileWidth = 10
+  const tileHeight = 8
   const walkingRef = useRef()
   const [coordinate, setCoordinate] = useState([0, 0])
+  const [facing, setFacing] = useState('')
 
   function roundToNearest(number, decimalPlace) {
     const multiplier = 1 / decimalPlace;
@@ -17,8 +20,19 @@ function App() {
 
   useEffect(() => {
     for (const border of data.border) {
-      if (border[0] === roundToNearest(coordinate[0] / 64, 0.5) && border[1] === roundToNearest((coordinate[1] / 64) + 0.5, 0.5)) {
-        console.log('stop!!!');
+      if (border[0] === roundToNearest(coordinate[0] / 64, 0.5) && border[1] === roundToNearest((coordinate[1] / 64), 0.5)) {
+        setCoordinate(previousCoordinate => {
+          switch (facing) {
+            case 'right':
+              return [previousCoordinate[0] - 1, previousCoordinate[1]]
+            case 'left':
+              return [previousCoordinate[0] + 1, previousCoordinate[1]]
+            case 'down':
+              return [previousCoordinate[0], previousCoordinate[1] + 1]
+            case 'up':
+              return [previousCoordinate[0], previousCoordinate[1] - 1]
+          }
+        })
       }
     }
   }, [coordinate])
@@ -53,7 +67,7 @@ function App() {
           left: `calc((var(--tile-size) * -1) + (-1 * ${coordinate[0]}px))`,
           top: `calc((var(--tile-size) * 0) + ${coordinate[1]}px)`,
         }}>
-          <GuideTile />
+          <GuideTile tileHeight={tileHeight} tileWidth={tileWidth} />
           <GuideBorder />
 
           <div className='App__hero--direction' style={{
@@ -74,25 +88,37 @@ function App() {
         }</p>
 
         <button
-          onMouseDown={() => startWalking('up')}
+          onMouseDown={() => {
+            startWalking('up')
+            setFacing('up')
+          }}
           onMouseUp={stopWalking}
           onMouseLeave={stopWalking}
         >up</button>
 
         <button
-          onMouseDown={() => startWalking('left')}
+          onMouseDown={() => {
+            startWalking('left')
+            setFacing('left')
+          }}
           onMouseUp={stopWalking}
           onMouseLeave={stopWalking}
         >left</button>
 
         <button
-          onMouseDown={() => startWalking('right')}
+          onMouseDown={() => {
+            startWalking('right')
+            setFacing('right')
+          }}
           onMouseUp={stopWalking}
           onMouseLeave={stopWalking}
         >right</button>
 
         <button
-          onMouseDown={() => startWalking('down')}
+          onMouseDown={() => {
+            startWalking('down')
+            setFacing('down')
+          }}
           onMouseUp={stopWalking}
           onMouseLeave={stopWalking}
         >down</button>

@@ -1,10 +1,10 @@
 import React from 'react'
 import './GuideTile.css'
 
-function GuideTile() {
+function GuideTile({ tileWidth, tileHeight }) {
   const tileArray = []
-  const tileWidth = 10
-  const tileHeight = 8
+  // const tileWidth = 10
+  // const tileHeight = 8
 
   for (let indexHeight = 0; indexHeight < tileHeight; indexHeight++) {
     for (let indexWidth = 0; indexWidth < tileWidth; indexWidth++) {
