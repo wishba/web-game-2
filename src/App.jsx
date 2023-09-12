@@ -4,6 +4,7 @@ import data from './data/data.json'
 import GuideBorder from './components/GuideBorder'
 import GuideHero from './components/GuideHero'
 import GuideTile from './components/GuideTile'
+import GuideObject from './components/GuideObject'
 
 function App() {
   // const zoomTile = 16 * 4 /** 64 */
@@ -69,6 +70,7 @@ function App() {
         }}>
           <GuideTile tileHeight={tileHeight} tileWidth={tileWidth} />
           <GuideBorder />
+          <GuideObject />
 
           <div className='App__hero--direction' style={{
             left: `calc(var(--tile-size) * 4 + (${roundToNearest(coordinate[0] / 64, 0.5)} * 64px))`,
