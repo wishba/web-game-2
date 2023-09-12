@@ -12,7 +12,8 @@ function GuideObject({ mapWidth, mapHeight }) {
   const centeringTop = Math.ceil(mapHeight / 2 - 1)
 
   for (const tile of objectTile) {
-    objectArray.push(<div key={tile} className='GuideObject__tile' style={{
+    objectArray.push(<div key={tile} className='GuideObject' style={{
+      position: 'absolute',
       left: `calc(var(--tile-size) * ${tile[0]})`,
       top: `calc(var(--tile-size) * -1 * ${tile[1]})`,
       zIndex: `${tile[2]}`,

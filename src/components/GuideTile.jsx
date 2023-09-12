@@ -6,7 +6,7 @@ function GuideTile({ mapWidth, mapHeight }) {
 
   for (let indexHeight = 0; indexHeight < mapHeight; indexHeight++) {
     for (let indexWidth = 0; indexWidth < mapWidth; indexWidth++) {
-      tileArray.push(<div key={`${indexWidth} ${indexHeight}`} className='GuideTile__tile'>
+      tileArray.push(<div key={`${indexWidth} ${indexHeight}`} className='GuideTile'>
         {indexWidth - (Math.ceil(mapWidth / 2) - 1)}
         /
         {-1 * (indexHeight - (Math.ceil(mapHeight / 2) - 1))}
@@ -17,7 +17,7 @@ function GuideTile({ mapWidth, mapHeight }) {
   }
 
   return (
-    <div className='GuideTile'>{tileArray}</div>
+    <div>{tileArray}</div>
   )
 }
 

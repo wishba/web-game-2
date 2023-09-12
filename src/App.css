@@ -1,29 +1,14 @@
-.App {
-  overflow: hidden;
-  width: 100vw;
-  height: 100vh;
-}
-
 .App__screen {
-  position: relative;
-  left: 50vw;
-  top: 50vh;
-  transform: translate(-50%, -50%);
-  width: calc(var(--tile-size) * 7);
-  height: calc(var(--tile-size) * 7);
-}
-
-.App__hero {
   position: absolute;
-  left: calc(var(--tile-size) * -1);
-  top: calc(var(--tile-size) * 0);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 }
 
-.App__hero--direction {
+.App__direction {
   width: calc(var(--tile-size) / 2);
   height: calc(var(--tile-size) / 2);
   background-color: rgba(255, 255, 0, 0.5);
-  position: absolute;
 }
 
 .App__controller {

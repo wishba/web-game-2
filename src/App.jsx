@@ -63,26 +63,28 @@ function App() {
   }
 
   return (
-    <div className='App'>
-      <div className='App__screen'>
+    <div>
+      <div className='App__screen' style={{
+        width: `${tileZoom * mapWidth}px`,
+        height: `${tileZoom * mapHeight}px`,
+      }}>
         <div style={{
           position: 'absolute',
-          left: `calc((var(--tile-size) * -1) + (-1 * ${coordinate[0]}px))`,
-          top: `calc((var(--tile-size) * 0) + ${coordinate[1]}px)`,
+          left: `${coordinate[0] * -1}px`,
+          top: `${coordinate[1]}px`,
         }}>
           <GuideTile mapHeight={mapHeight} mapWidth={mapWidth} />
           <GuideBorder mapHeight={mapHeight} mapWidth={mapWidth} />
           <GuideObject mapHeight={mapHeight} mapWidth={mapWidth} />
 
-          <div className='App__hero--direction' style={{
+          <div className='App__direction' style={{
+            position: 'absolute',
             left: `calc(var(--tile-size) * ${centeringLeft} + (${roundToNearest(coordinate[0] / tileZoom, 0.5)} * ${tileZoom}px))`,
             top: `calc(var(--tile-size) * ${centeringTop} + (${roundToNearest(coordinate[1] / tileZoom, 0.5)} * -${tileZoom}px))`,
           }}></div>
         </div>
 
-        <div className='App__hero'>
-          <GuideHero mapHeight={mapHeight} mapWidth={mapWidth} />
-        </div>
+        <GuideHero mapHeight={mapHeight} mapWidth={mapWidth} />
       </div>
 
       <div className='App__controller'>
