@@ -1,9 +1,3 @@
-.GuideObject {
-  position: absolute;
-  left: calc(var(--tile-size) * 4);
-  top: calc(var(--tile-size) * 3);
-}
-
 .GuideObject__tile {
   width: var(--tile-size);
   height: var(--tile-size);

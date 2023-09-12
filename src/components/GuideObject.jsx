@@ -1,24 +1,31 @@
 import React from 'react'
 import './GuideObject.css'
 
-function GuideObject() {
+function GuideObject({ mapWidth, mapHeight }) {
   const objectArray = []
   const objectTile = [
     [2, 1, 0],
     [2, 0, 0],
     [2, -1, 1]
   ]
+  const centeringLeft = Math.ceil(mapWidth / 2 - 1)
+  const centeringTop = Math.ceil(mapHeight / 2 - 1)
 
-  for (let index = 0; index < objectTile.length; index++) {
-    objectArray.push(<div className='GuideObject__tile' style={{
-      left: `calc(var(--tile-size) * ${objectTile[index][0]})`,
-      top: `calc(var(--tile-size) * -1 * ${objectTile[index][1]})`,
-      zIndex: `${objectTile[index][2]}`,
-    }}></div>)
+  for (const tile of objectTile) {
+    objectArray.push(<div key={tile} className='GuideObject__tile' style={{
+      left: `calc(var(--tile-size) * ${tile[0]})`,
+      top: `calc(var(--tile-size) * -1 * ${tile[1]})`,
+      zIndex: `${tile[2]}`,
+    }}></div>
+    )
   }
 
   return (
-    <div className='GuideObject'>{objectArray}</div>
+    <div style={{
+      position: 'absolute',
+      left: `calc(var(--tile-size) * ${centeringLeft})`,
+      top: `calc(var(--tile-size) * ${centeringTop})`,
+    }}>{objectArray}</div>
   )
 }
 

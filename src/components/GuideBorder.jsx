@@ -2,16 +2,16 @@ import React from 'react'
 import './GuideBorder.css'
 import data from '../data/data.json'
 
-function GuideBorder() {
+function GuideBorder({ mapWidth, mapHeight }) {
   const borderArray = []
-  // const tileWidth = 10
-  // const tileHeight = 8
+  const centeringLeft = Math.ceil(mapWidth / 2 - 1)
+  const centeringTop = Math.ceil(mapHeight / 2 - 1)
 
   for (let index = 0; index < data.border.length; index++) {
     borderArray.push(<div key={index} className='GuideBorder' style={{
       position: 'absolute',
-      left: `calc(var(--tile-size) * (${data.border[index][0]} + 4))`,
-      top: `calc(var(--tile-size) * (${data.border[index][1] * -1} + 3))`,
+      left: `calc(var(--tile-size) * (${data.border[index][0]} + ${centeringLeft}))`,
+      top: `calc(var(--tile-size) * (${data.border[index][1] * -1} + ${centeringTop}))`,
     }}></div>)
   }
 

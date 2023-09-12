@@ -7,9 +7,11 @@ import GuideTile from './components/GuideTile'
 import GuideObject from './components/GuideObject'
 
 function App() {
-  // const zoomTile = 16 * 4 /** 64 */
-  const tileWidth = 10
-  const tileHeight = 8
+  const tileZoom = 16 * 4
+  const mapWidth = 10
+  const mapHeight = 10
+  const centeringLeft = Math.ceil(mapWidth / 2 - 1)
+  const centeringTop = Math.ceil(mapHeight / 2 - 1)
   const walkingRef = useRef()
   const [coordinate, setCoordinate] = useState([0, 0])
   const [facing, setFacing] = useState('')
@@ -21,7 +23,7 @@ function App() {
 
   useEffect(() => {
     for (const border of data.border) {
-      if (border[0] === roundToNearest(coordinate[0] / 64, 0.5) && border[1] === roundToNearest((coordinate[1] / 64), 0.5)) {
+      if (border[0] === roundToNearest(coordinate[0] / tileZoom, 0.5) && border[1] === roundToNearest((coordinate[1] / tileZoom), 0.5)) {
         setCoordinate(previousCoordinate => {
           switch (facing) {
             case 'right':
@@ -68,25 +70,25 @@ function App() {
           left: `calc((var(--tile-size) * -1) + (-1 * ${coordinate[0]}px))`,
           top: `calc((var(--tile-size) * 0) + ${coordinate[1]}px)`,
         }}>
-          <GuideTile tileHeight={tileHeight} tileWidth={tileWidth} />
-          <GuideBorder />
-          <GuideObject />
+          <GuideTile mapHeight={mapHeight} mapWidth={mapWidth} />
+          <GuideBorder mapHeight={mapHeight} mapWidth={mapWidth} />
+          <GuideObject mapHeight={mapHeight} mapWidth={mapWidth} />
 
           <div className='App__hero--direction' style={{
-            left: `calc(var(--tile-size) * 4 + (${roundToNearest(coordinate[0] / 64, 0.5)} * 64px))`,
-            top: `calc(var(--tile-size) * 3 + (${roundToNearest(coordinate[1] / 64, 0.5)} * -64px))`,
+            left: `calc(var(--tile-size) * ${centeringLeft} + (${roundToNearest(coordinate[0] / tileZoom, 0.5)} * ${tileZoom}px))`,
+            top: `calc(var(--tile-size) * ${centeringTop} + (${roundToNearest(coordinate[1] / tileZoom, 0.5)} * -${tileZoom}px))`,
           }}></div>
         </div>
 
         <div className='App__hero'>
-          <GuideHero />
+          <GuideHero mapHeight={mapHeight} mapWidth={mapWidth} />
         </div>
       </div>
 
       <div className='App__controller'>
         <p>{
           coordinate[0] + '/' + coordinate[1] + ' | ' +
-          roundToNearest(coordinate[0] / 64, 0.5) + '/' + roundToNearest(coordinate[1] / 64, 0.5)
+          roundToNearest(coordinate[0] / tileZoom, 0.5) + '/' + roundToNearest(coordinate[1] / tileZoom, 0.5)
         }</p>
 
         <button
