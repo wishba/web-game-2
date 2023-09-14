@@ -1,5 +1,6 @@
 :root {
-  --tile-size: calc(1rem * 4);
+  --tile-zoom: 4;
+  --tile-size: calc(1rem * var(--tile-zoom));
   --tile-border: calc(var(--tile-size) / 64);
 }
 
@@ -7,4 +8,5 @@
   box-sizing: border-box;
   font-size: calc(var(--tile-size) / 4);
   margin: 0;
+  image-rendering: pixelated;
 }

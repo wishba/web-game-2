@@ -1,17 +1,16 @@
 import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import data from './data/data.json'
+import assetGrass from '../src/assets/Grass.png'
+import assetCow from '../src/assets/Free Cow Sprites.png'
 import GuideBorder from './components/GuideBorder'
-import GuideHero from './components/GuideHero'
 import GuideTile from './components/GuideTile'
-import GuideObject from './components/GuideObject'
+import Hero from './components/Hero'
+import ObjectSelector from './components/ObjectSelector'
 
 function App() {
   const tileZoom = 16 * 4
-  const mapWidth = 10
-  const mapHeight = 10
-  const centeringLeft = Math.ceil(mapWidth / 2 - 1)
-  const centeringTop = Math.ceil(mapHeight / 2 - 1)
+  const mapSize = [8, 7]
   const walkingRef = useRef()
   const [coordinate, setCoordinate] = useState([0, 0])
   const [facing, setFacing] = useState('')
@@ -65,26 +64,28 @@ function App() {
   return (
     <div>
       <div className='App__screen' style={{
-        width: `${tileZoom * mapWidth}px`,
-        height: `${tileZoom * mapHeight}px`,
+        width: `${tileZoom * mapSize[0]}px`,
+        height: `${tileZoom * mapSize[1]}px`,
       }}>
         <div style={{
           position: 'absolute',
           left: `${coordinate[0] * -1}px`,
           top: `${coordinate[1]}px`,
         }}>
-          <GuideTile mapHeight={mapHeight} mapWidth={mapWidth} />
-          <GuideBorder mapHeight={mapHeight} mapWidth={mapWidth} />
-          <GuideObject mapHeight={mapHeight} mapWidth={mapWidth} />
+          <ObjectSelector mapSize={mapSize} asset={assetGrass} placement={data.object.ground.placement} tile={data.object.ground.tile} />
+          <ObjectSelector mapSize={mapSize} asset={assetCow} placement={data.object.cow.placement} tile={data.object.cow.tile} />
+
+          <GuideTile mapHeight={mapSize[1]} mapWidth={mapSize[0]} />
+          <GuideBorder mapSize={mapSize} />
 
           <div className='App__direction' style={{
             position: 'absolute',
-            left: `calc(var(--tile-size) * ${centeringLeft} + (${roundToNearest(coordinate[0] / tileZoom, 0.5)} * ${tileZoom}px))`,
-            top: `calc(var(--tile-size) * ${centeringTop} + (${roundToNearest(coordinate[1] / tileZoom, 0.5)} * -${tileZoom}px))`,
+            left: `calc(var(--tile-size) * ${Math.ceil(mapSize[0] / 2 - 1)} + (${roundToNearest(coordinate[0] / tileZoom, 0.5)} * ${tileZoom}px))`,
+            top: `calc(var(--tile-size) * ${Math.ceil(mapSize[1] / 2 - 1)} + (${roundToNearest(coordinate[1] / tileZoom, 0.5)} * -${tileZoom}px))`,
           }}></div>
         </div>
 
-        <GuideHero mapHeight={mapHeight} mapWidth={mapWidth} />
+        <Hero mapSize={mapSize} />
       </div>
 
       <div className='App__controller'>

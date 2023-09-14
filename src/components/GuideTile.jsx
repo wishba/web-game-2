@@ -17,7 +17,10 @@ function GuideTile({ mapWidth, mapHeight }) {
   }
 
   return (
-    <div>{tileArray}</div>
+    <div style={{
+      width: `calc(var(--tile-size) * ${mapWidth})`,
+      height: `calc(var(--tile-size) * ${mapHeight})`,
+    }}>{tileArray}</div>
   )
 }
 

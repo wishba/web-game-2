@@ -1,0 +1,4 @@
+.ObjectSelector {
+  width: var(--tile-size);
+  height: var(--tile-size);
+}

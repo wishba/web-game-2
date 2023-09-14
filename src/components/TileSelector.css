@@ -1,0 +1,9 @@
+.TileSelector {
+  width: var(--tile-size);
+  height: var(--tile-size);
+  overflow: hidden;
+}
+
+.TileSelector__image {
+  transform-origin: top left;
+}
