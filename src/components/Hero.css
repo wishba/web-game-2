@@ -1,5 +1,4 @@
 .Hero {
   width: calc(var(--tile-size) / 2);
   height: calc(var(--tile-size) / 2);
-  background-color: rgba(0, 128, 0, 0.25);
 }

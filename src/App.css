@@ -1,3 +1,9 @@
+.App_debug {
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  width: fit-content;
+}
+
 .App__screen {
   position: absolute;
   left: 50%;
@@ -14,5 +20,4 @@
 .App__controller {
   position: absolute;
   bottom: 0;
-  background-color: lightgray;
 }

@@ -10,6 +10,7 @@ function GuideBorder({ mapSize }) {
       position: 'absolute',
       left: `calc(var(--tile-size) * (${data.border[index][0]} + ${Math.ceil(mapSize[0] / 2 - 1)}))`,
       top: `calc(var(--tile-size) * (${data.border[index][1] * -1} + ${Math.ceil(mapSize[1] / 2 - 1)}))`,
+      zIndex: '1',
     }}></div>)
   }
 
