@@ -19,6 +19,7 @@ function App() {
   const [pressedKey, setPressedKey] = useState('')
   const [placementTree, setPlacementTree] = useState(data.object.tree.placementFront)
   const roundToNearest = (number, decimalPlace) => Math.round(number * (1 / decimalPlace)) / (1 / decimalPlace)
+  const heroStep = [roundToNearest(coordinate[0] / tileZoom, 0.5), roundToNearest(coordinate[1] / tileZoom, 0.5)]
 
   useEffect(() => {
     document.addEventListener('keydown', (event) => setPressedKey(event.key))
@@ -30,7 +31,7 @@ function App() {
 
   useEffect(() => {
     for (const border of data.border) {
-      if (border[0] === roundToNearest(coordinate[0] / tileZoom, 0.5) && border[1] === roundToNearest((coordinate[1] / tileZoom), 0.5)) {
+      if (border[0] === heroStep[0] && border[1] === heroStep[1]) {
         setCoordinate(previousCoordinate => {
           switch (facing) {
             case 'right':
@@ -47,13 +48,13 @@ function App() {
     }
 
     for (const iterator of data.object.tree.positionBack) {
-      if (iterator[0] === roundToNearest(coordinate[0] / tileZoom, 0.5) && iterator[1] === roundToNearest((coordinate[1] / tileZoom), 0.5)) {
+      if (iterator[0] === heroStep[0] && iterator[1] === heroStep[1]) {
         setPlacementTree(data.object.tree.placementBack)
       }
     }
 
     for (const iterator of data.object.tree.positionFront) {
-      if (iterator[0] === roundToNearest(coordinate[0] / tileZoom, 0.5) && iterator[1] === roundToNearest((coordinate[1] / tileZoom), 0.5)) {
+      if (iterator[0] === heroStep[0] && iterator[1] === heroStep[1]) {
         setPlacementTree(data.object.tree.placementFront)
       }
     }
@@ -84,7 +85,7 @@ function App() {
     <div className='App'>
       <p className='App_debug' style={{ display: `${showDebug}` }}>{
         coordinate[0] + '/' + coordinate[1] + ' | ' +
-        roundToNearest(coordinate[0] / tileZoom, 0.5) + '/' + roundToNearest(coordinate[1] / tileZoom, 0.5)
+        heroStep[0] + '/' + heroStep[1]
       }</p>
 
       <div className='App__screen' style={{
@@ -107,8 +108,8 @@ function App() {
 
           <div className='App__direction' style={{
             position: 'absolute',
-            left: `calc(var(--tile-size) * ${Math.ceil(mapSize[0] / 2 - 1)} + (${roundToNearest(coordinate[0] / tileZoom, 0.5)} * ${tileZoom}px))`,
-            top: `calc(var(--tile-size) * ${Math.ceil(mapSize[1] / 2 - 1)} + (${roundToNearest(coordinate[1] / tileZoom, 0.5)} * -${tileZoom}px))`,
+            left: `calc(var(--tile-size) * ${Math.ceil(mapSize[0] / 2 - 1)} + (${heroStep[0]} * ${tileZoom}px))`,
+            top: `calc(var(--tile-size) * ${Math.ceil(mapSize[1] / 2 - 1)} + (${heroStep[1]} * -${tileZoom}px))`,
             display: `${showDebug}`,
             zIndex: '1',
           }}></div>
