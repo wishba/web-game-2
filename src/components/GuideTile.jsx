@@ -1,15 +1,16 @@
 import React from 'react'
 import './GuideTile.css'
+import data from '../data/data.json'
 
-function GuideTile({ mapWidth, mapHeight }) {
+function GuideTile() {
   const tileArray = []
 
-  for (let indexHeight = 0; indexHeight < mapHeight; indexHeight++) {
-    for (let indexWidth = 0; indexWidth < mapWidth; indexWidth++) {
+  for (let indexHeight = 0; indexHeight < data.mapSize[1]; indexHeight++) {
+    for (let indexWidth = 0; indexWidth < data.mapSize[0]; indexWidth++) {
       tileArray.push(<div key={`${indexWidth} ${indexHeight}`} className='GuideTile'>
-        {indexWidth - (Math.ceil(mapWidth / 2) - 1)}
+        {indexWidth - (Math.ceil(data.mapSize[0] / 2) - 1)}
         /
-        {-1 * (indexHeight - (Math.ceil(mapHeight / 2) - 1))}
+        {-1 * (indexHeight - (Math.ceil(data.mapSize[1] / 2) - 1))}
       </div>)
     }
 
@@ -18,8 +19,8 @@ function GuideTile({ mapWidth, mapHeight }) {
 
   return (
     <div style={{
-      width: `calc(var(--tile-size) * ${mapWidth})`,
-      height: `calc(var(--tile-size) * ${mapHeight})`,
+      width: `calc(var(--tile-size) * ${data.mapSize[0]})`,
+      height: `calc(var(--tile-size) * ${data.mapSize[1]})`,
     }}>{tileArray}</div>
   )
 }

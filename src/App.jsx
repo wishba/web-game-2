@@ -97,13 +97,13 @@ function App() {
           left: `${coordinate[0] * -1}px`,
           top: `${coordinate[1]}px`,
         }}>
-          <ObjectSelector mapSize={mapSize} asset={assetGrass} placement={data.object.ground.placement} tile={data.object.ground.tile} />
-          <ObjectSelector mapSize={mapSize} asset={assetCow} placement={data.object.cow.placement} tile={data.object.cow.tile} />
-          <ObjectSelector mapSize={mapSize} asset={assetPlant} placement={placementTree} tile={data.object.tree.tile} />
+          <ObjectSelector asset={assetGrass} placement={data.object.ground.placement} tile={data.object.ground.tile} />
+          <ObjectSelector asset={assetCow} placement={data.object.cow.placement} tile={data.object.cow.tile} />
+          <ObjectSelector asset={assetPlant} placement={placementTree} tile={data.object.tree.tile} />
 
           <div style={{ display: `${showDebug}` }}>
-            <GuideTile mapHeight={mapSize[1]} mapWidth={mapSize[0]} />
-            <GuideBorder mapSize={mapSize} />
+            <GuideTile />
+            <GuideBorder />
           </div>
 
           <div className='App__direction' style={{
