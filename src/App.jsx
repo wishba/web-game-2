@@ -81,7 +81,7 @@ function App() {
   }
 
   return (
-    <div>
+    <div className='App'>
       <p className='App_debug' style={{ display: `${showDebug}` }}>{
         coordinate[0] + '/' + coordinate[1] + ' | ' +
         roundToNearest(coordinate[0] / tileZoom, 0.5) + '/' + roundToNearest(coordinate[1] / tileZoom, 0.5)
