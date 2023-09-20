@@ -8,6 +8,7 @@
 .App_debug {
   background-color: rgba(0, 0, 0, 0.5);
   color: white;
+  text-shadow: var(--tile-border) var(--tile-border) black;
   width: fit-content;
 }
 
