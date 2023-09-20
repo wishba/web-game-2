@@ -17,7 +17,6 @@ function App() {
   const [facing, setFacing] = useState('')
   const [showDebug, setShowDebug] = useState('none')
   const [pressedKey, setPressedKey] = useState('')
-  // const [placementTree, setPlacementTree] = useState(data.object.tree.placementFront)
   const roundToNearest = (number, decimalPlace) => Math.round(number * (1 / decimalPlace)) / (1 / decimalPlace)
   const heroStep = [roundToNearest(coordinate[0] / tileZoom, 0.5), roundToNearest(coordinate[1] / tileZoom, 0.5)]
 
@@ -46,18 +45,6 @@ function App() {
         })
       }
     }
-
-    // for (const iterator of data.object.tree.positionBack) {
-    //   if (iterator[0] === heroStep[0] && iterator[1] === heroStep[1]) {
-    //     setPlacementTree(data.object.tree.placementBack)
-    //   }
-    // }
-
-    // for (const iterator of data.object.tree.positionFront) {
-    //   if (iterator[0] === heroStep[0] && iterator[1] === heroStep[1]) {
-    //     setPlacementTree(data.object.tree.placementFront)
-    //   }
-    // }
   }, [coordinate])
 
   const startWalking = (direction) => {
@@ -97,7 +84,6 @@ function App() {
           left: `${coordinate[0] * -1}px`,
           top: `${coordinate[1]}px`,
         }}>
-          {/* <ObjectSelector asset={assetGrass} placement={data.object.ground.placement} tile={data.object.ground.tile} /> */}
           <ObjectSelector asset={assetGrass} heroStep={heroStep} select={data.object.ground} />
           <ObjectSelector asset={assetCow} heroStep={heroStep} select={data.object.cow} />
           <ObjectSelector asset={assetPlant} heroStep={heroStep} select={data.object.tree} />
@@ -127,6 +113,11 @@ function App() {
           }}
           onMouseUp={stopWalking}
           onMouseLeave={stopWalking}
+          onTouchStart={() => {
+            startWalking('up')
+            setFacing('up')
+          }}
+          onTouchEnd={stopWalking}
         >up</button>
 
         <button
@@ -136,6 +127,11 @@ function App() {
           }}
           onMouseUp={stopWalking}
           onMouseLeave={stopWalking}
+          onTouchStart={() => {
+            startWalking('left')
+            setFacing('left')
+          }}
+          onTouchEnd={stopWalking}
         >left</button>
 
         <button
@@ -145,6 +141,11 @@ function App() {
           }}
           onMouseUp={stopWalking}
           onMouseLeave={stopWalking}
+          onTouchStart={() => {
+            startWalking('right')
+            setFacing('right')
+          }}
+          onTouchEnd={stopWalking}
         >right</button>
 
         <button
@@ -154,6 +155,11 @@ function App() {
           }}
           onMouseUp={stopWalking}
           onMouseLeave={stopWalking}
+          onTouchStart={() => {
+            startWalking('down')
+            setFacing('down')
+          }}
+          onTouchEnd={stopWalking}
         >down</button>
       </div>
     </div>
